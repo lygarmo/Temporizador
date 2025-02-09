@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Cronómetro Promesas</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: #2d2d2d;
+                color: white;
+            }
+
+            .temporizador {
+                align-content: center;
+                text-align: center;
+                font-size: 48px;
+                font-weight: bold;
+                background-color: #414141;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+                margin-top: 20px;
+                margin-bottom: 20px;
+                width: 500px;
+                height: 100px;
+            }
+
+            #botones {
+                display: flex;
+                gap: 10px;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+            }
+
+            button:hover {
+                background-color: #66cf6b;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="temporizador" id="temporizador1">00:00:10</div>
+        <div class="temporizador" id="temporizador2">00:00:10</div>
+        <div class="temporizador" id="temporizador3">00:00:10</div>
+        <button id="iniciar">Iniciar</button>
+
+        <script>
+            const temporizadores = [
+                { id: "temporizador1", segundos: 10 },
+                { id: "temporizador2", segundos: 10 },
+                { id: "temporizador3", segundos: 10 }
+            ];
+
+            function formatearTiempo(segundos) {
+                const horas = Math.floor(segundos / 3600);
+                const minutos = Math.floor((segundos % 3600) / 60);
+                const segundosRestantes = segundos % 60;
+                return `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(segundosRestantes).padStart(2, '0')}`;
+            }
+
+            function iniciarTemporizador(temporizador) {
+                const elemento = document.getElementById(temporizador.id);
+                return new Promise((resolve) => {
+                    function actualizar() {
+                        if (temporizador.segundos > 0) {
+                            temporizador.segundos--;
+                            elemento.textContent = formatearTiempo(temporizador.segundos);
+                            setTimeout(actualizar, 1000);
+                        } else {
+                            console.log(`Temporizador ${temporizador.id} ha terminado`);
+                            resolve(); // Cuando el temporizador llega a 0, se resuelve la promesa
+                        }
+                    }
+                    actualizar();
+                });
+            }
+
+            function iniciarSecuencia() {
+                iniciarTemporizador(temporizadores[0])
+                    .then(() => iniciarTemporizador(temporizadores[1]))
+                    .then(() => iniciarTemporizador(temporizadores[2]))
+                    .then(() => alert("Todos los temporizadores han terminado"));
+            }
+
+            document.getElementById("iniciar").addEventListener("click", iniciarSecuencia);
+        </script>
+    </body>
+</html>
