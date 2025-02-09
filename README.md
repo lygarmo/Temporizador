@@ -26,7 +26,7 @@ Añade aquí una captura de pantalla del cronómetro en acción.
 
 Clona el repositorio:
 
-git clone https://github.com/lygarmo/cronometro.html
+git clone https://github.com/lygarmo/temporizadoresEnCascada.html
 
 Abre index.html en tu navegador.
 
