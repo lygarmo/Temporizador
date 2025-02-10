@@ -34,4 +34,4 @@ Haz clic en el botón Iniciar y observa cómo los temporizadores cuentan regresi
 
 📜 Licencia
 
-Este proyecto está bajo la licencia MIT, por lo que puedes usarlo y modificarlo libremente.
+Este proyecto está bajo la licencia MIT, por lo que puedes usarlo y modificarlo libremente. 
